@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+
+    <script src="./components/Diver-Rotation.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="./components/Treasure.js"></script>
+    <script src="./components/Fish.js"></script>
+
+  </head>
+
+  <body>
+    <a-scene background="color:#5ecaeb">
+
+      <a-entity id="look" look-controls camera position="0 2 20"></a-entity>
+
+      <!--Asset Management-->
+      <a-assets timeout="10000">        
+        <a-asset-item
+          id="terrainMap"
+          src="./assets/Underwater/scene.gltf"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="diver"
+          src="./assets/ScubaDiver/scene.gltf"
+        ></a-asset-item>
+        
+      </a-assets>
+
+      <!-- Terrain  -->
+      <a-entity
+        id="terrain"
+        gltf-model="#terrainMap"
+        position="-100 0 -100"
+        scale="200 200 200"
+        animation="property: position; to: 0 0 1000;easing:linear; loop: true; dur: 200000"
+        terrain-rotation-reader
+        target-ring
+        avoid-fish
+      >
+      </a-entity>
+
+      <!-- Diver  -->
+      <a-entity
+        id="diver"
+        gltf-model="#diver"
+        position="0 0 18"
+        scale="0.01 0.01 0.01"
+        rotation="45 180 0"
+        diver-rotation-reader
+      >
+      </a-entity>
+
+      <!-----------------------------------Game Timer and Score------------------------------------------>
+      <a-entity id="header" position="1 -4 0">
+        <!-- Title -->
+        <a-entity
+          position="-28.5 21.5 0"
+          text="font: exo2bold; align: center; width: 40; color: grey; value: SCOOBA DIVER"
+        ></a-entity>
+
+        <!-- Timer -->
+        <a-entity position="-23.5 19.3 0">
+          <a-entity
+            position="-1.5 0.07 0"
+            text="font: aileronsemibold; width: 12; color: grey; value: TIME\nREMAINING"
+          ></a-entity>
+          <a-entity
+            id="timer"
+            position="-9.8 0.3 0"
+            text="font: exo2bold; align: center; width: 30; color: grey; value: 00:00"
+          ></a-entity>
+        </a-entity>
+
+        <!-- Score -->
+        <a-entity position="30 21.5 0">
+          <a-entity
+            text="font: exo2bold; width: 40; color: grey; value: SCORE"
+          >  
+          </a-entity>
+          <a-entity
+            position="2.25 -2 0"
+            text="font: aileronsemibold; width: 40; color: grey; value: 0"
+            id="sroce"
+          >  
+          </a-entity>
+        </a-entity>
+
+        <!-- Target Status -->
+        <a-entity position="-18 19.3 0">
+          <a-entity
+            position="-1 0.1 0"
+            text="font: aileronsemibold; width: 12; color: grey; value: TARGETS\nREMIANING"
+          >  
+          </a-entity>
+          <a-entity
+            position="6 0.25 0"
+            text="font: exo2bold; width: 30; color: grey; value: 20"
+            id="traget"
+          >  
+          </a-entity>
+        </a-entity>
+      </a-entity>
+      
+      <!-- Over -->
+      <a-entity
+            position="40 7 0"
+            text="font: exo2bold; width: 100; color: black; value: GAME\nOVER"
+            visible="false"
+            id="go"
+          >  
+      </a-entity>
+      
+    </a-scene>
+  </body>
+</html>
